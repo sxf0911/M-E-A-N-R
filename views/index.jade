@@ -1,0 +1,50 @@
+extends ./layout
+block content
+	div#layout
+		a#menuLink.menu-link(href='javascript:;', menu-link)
+			span
+		nav#menu
+			div.pure-menu
+				a.pure-menu-heading(ng-href='/#/blog') MEAN-BLOG
+				ul.pure-menu-list
+					li.pure-menu-item
+						a.pure-menu-link(ng-href='/#/blog', class='{{ (currentRoutePath.indexOf("/blog") == 0) ? "pure-menu-selected" : "" }}')
+							span.label-light-red
+							| BLOG 
+							span.label-count ( {{ BlogCount ? BlogCount : '^.^' }} )
+					li.pure-menu-item
+						a.pure-menu-link(ng-href='/#/about', class='{{ (currentRoutePath.indexOf("/about") == 0) ? "pure-menu-selected" : "" }}')
+							span.label-yellow
+							| About
+					li.pure-menu-item
+						a.pure-menu-link(ng-href='/#/contact', class='{{ (currentRoutePath.indexOf("/contact") == 0) ? "pure-menu-selected" : "" }}')
+							span.label-green
+							| Contact
+					li.pure-menu-item
+						a.pure-menu-link(ng-href='/#/blog')
+							span.label-blue
+							| Nothing
+					li.pure-menu-heading.menu-item-divided User
+					li.pure-menu-item(ng-if='!!currentUser')
+						a.pure-menu-link(ng-href='/#/user/{{currentUser._id}}')
+							span.label-dark-blue
+							| Welcome, {{ currentUser.username }}
+					li.pure-menu-item(ng-if='!!currentUser')
+						a.pure-menu-link(href='/auth/logout')
+							span.icon-logout 
+							| Sign Out
+			ul.nav-list(ng-if='!currentUser')
+				li.nav-item
+					a.pure-button(href='javascript:;', ng-click='authDialog("login")') Sign I n
+				li.nav-item
+					a.pure-button(href='javascript:;', ng-click='authDialog("register")') Sign Up
+		div#main
+			a(href='https://github.com/icyse/mean-blog')
+				img(style='position:absolute;top:0;left:0;border:0;z-index:1;', src='/images/fork-me-on-github.png', alt='Fork me on GitHub')
+			section(id='content', ng-view, class='fade')
+			footer(id='info')
+				p Originated by 
+					a(href='https://github.com/icyse') Cai
+				p Modified by 
+					a(href='https://github.com/icyse') Cai
+					|  in Aprl 2016
